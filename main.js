@@ -8,18 +8,19 @@ function main() {
   renderer.setPixelRatio(window.devicePixelRatio)
   renderer.setClearColor(0xffffff)
 
-  const fov = 25
+  const fov = 40
   const aspect = 2
   const near = 0.1
-  const far = 50
+  const far = 1000
   const camera = new THREE.PerspectiveCamera(fov, aspect, near, far)
 
   camera.position.z = 10
 
   const scene = new THREE.Scene()
+  scene.background = new THREE.Color(0xaaaaaa)
 
   const plane = new THREE.PlaneGeometry(10, 20)
-  const planeMaterial = new THREE.MeshPhongMaterial({color: 0xffffff})
+  const planeMaterial = new THREE.MeshPhongMaterial({color: 0xe1e1e1})
   const planeMesh = new THREE.Mesh(plane, planeMaterial)
 
   planeMesh.position.y = -2
@@ -28,7 +29,7 @@ function main() {
   scene.add(planeMesh)
 
   const makeInstance = (geometry, color, x) => {
-    const material = new THREE.MeshPhongMaterial({color})
+    const material = new THREE.MeshPhongMaterial({color, size: 0.2})
     const cube = new THREE.Mesh(geometry, material)
 
     cube.position.x = x
@@ -44,7 +45,7 @@ function main() {
     depth: 1
   }
 
-  const geometry = new THREE.BoxGeometry(box.width, box.height, box.depth)
+  const geometry = new THREE.BoxGeometry(box.width, box.height, box.depth, 5, 5, 5)
 
   const cubes = [
     makeInstance(geometry, 0x44aa88, 0),
