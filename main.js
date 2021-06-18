@@ -29,10 +29,15 @@ function main() {
   scene.add(planeMesh)
 
   const makeInstance = (geometry, color, x) => {
-    const material = new THREE.MeshPhongMaterial({color, size: 0.2})
+    const material = new THREE.MeshPhongMaterial({color, flatShading: true, shininess: 80})
     const cube = new THREE.Mesh(geometry, material)
 
     cube.position.x = x
+
+    const axes = new THREE.AxesHelper()
+    axes.material.depthTest = false
+    //axes.renderOrder = 1
+    cube.add(axes)
 
     scene.add(cube)
 
