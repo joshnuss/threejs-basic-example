@@ -1,9 +1,14 @@
 import './style.css'
 import * as THREE from 'three'
+import Stats from 'three/examples/jsm/libs/stats.module'
 
 function main() {
   const canvas = document.querySelector('#canvas')
   const renderer = new THREE.WebGLRenderer({canvas})
+  const stats = new Stats()
+  stats.showPanel(0)
+
+  document.body.appendChild(stats.dom)
 
   renderer.setPixelRatio(window.devicePixelRatio)
   renderer.setClearColor(0xffffff)
@@ -79,6 +84,8 @@ function main() {
   }
 
   const render = (time) => {
+    stats.begin()
+
     time *= 0.001
 
     if (resizeRendererToDisplaySize()) {
@@ -95,6 +102,8 @@ function main() {
     })
 
     renderer.render(scene, camera)
+
+    stats.end()
 
     requestAnimationFrame(render)
   }
