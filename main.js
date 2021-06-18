@@ -1,6 +1,7 @@
 import './style.css'
 import * as THREE from 'three'
 import Stats from 'three/examples/jsm/libs/stats.module'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
 function main() {
   const canvas = document.querySelector('#canvas')
@@ -20,6 +21,8 @@ function main() {
   const camera = new THREE.PerspectiveCamera(fov, aspect, near, far)
 
   camera.position.z = 10
+
+  new OrbitControls(camera, canvas)
 
   const scene = new THREE.Scene()
   scene.background = new THREE.Color(0xaaaaaa)
@@ -111,10 +114,6 @@ function main() {
   requestAnimationFrame(render)
 
   const DELTA = 0.5
-
-  window.addEventListener('mousewheel', (event) => {
-    camera.position.z += event.deltaY*0.01
-  })
 
   window.addEventListener('keydown', (event) => {
     if (event.ctrlKey && event.key == '+') {
